@@ -14,13 +14,17 @@ use App\Models\Article;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+// header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
+
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     // ...
-    Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
+    Route::post('/login', 'App\Http\Controllers\Auth\ApiAuthController@login')->name('login.api');
     Route::post('/register','App\Http\Controllers\Auth\ApiAuthController@register')->name('register.api');
-    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
-
+    Route::post('/logout', 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
+     Route::delete('articles/{id}', 'App\Http\Controllers\ArticleController@delete')->name('delete.api');
 
 });
 Route::middleware('auth:api')->group(function () {
@@ -34,6 +38,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('articles', 'App\Http\Controllers\ArticleController@index');
 Route::get('articles/{id}', 'App\Http\Controllers\ArticleController@show');
-Route::post('articles', 'ArticleController@store');
+Route::post('articles', 'App\Http\Controllers\ArticleController@store');
 Route::put('articles/{id}', 'ArticleController@update');
-Route::delete('articles/{id}', 'ArticleController@delete');
+//Route::delete('articles/{id}', 'App\Http\Controllers\ArticleController@delete');
+

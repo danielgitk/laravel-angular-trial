@@ -70,7 +70,7 @@ class ArticleController extends Controller
 //      */
 //     public function update(Request $request, $id)
 //     {
-//         $response = ['message' => 'update function'];
+//      $response = ['message' => 'update function'];   
 // return response($response, 200);
 //     }
 
@@ -87,16 +87,20 @@ class ArticleController extends Controller
 
 public function index()
 {
+    error_log('I am  index.');
     return Article::all();
 }
 
-public function show($user_id)
+public function show($id)
 {
-    return Article::find($user_id);
+    error_log('I am  here.');
+    return Article::find($id);
 }
 
 public function store(Request $request)
 {
+    error_log('I am not  here.');
+    //dd($request);
     return Article::create($request->all());
 }
 
@@ -110,9 +114,11 @@ public function update(Request $request, $id)
 
 public function delete(Request $request, $id)
 {
-    $article = Article::findOrFail($id);
-    $article->delete();
+   echo($id);
+   $article = Article::findOrFail($id);
 
+   $article->delete();
+//    $response = ['message' => 'delete function'];   
     return 204;
 }
 }
